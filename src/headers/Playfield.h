@@ -17,6 +17,7 @@ private:
 
 	 // size in tiles of the playfield
 	 sf::Vector2i tileSize;
+	 std::vector<std::vector<sf::RectangleShape>> drawableField;
 
 public:
 	Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize);
@@ -27,4 +28,6 @@ public:
 
 	sf::Vector2f getSizeOfTile();
 	sf::Vector2f TileToGlobalCoords(sf::Vector2i tileCoords);
+	
+	sf::Vector2i getTileSize();
 };
