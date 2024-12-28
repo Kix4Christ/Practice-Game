@@ -16,6 +16,8 @@ PlayScene::PlayScene(const sf::Font& font, sf::Window& window)
 	playfield = new Playfield(sf::FloatRect(sf::Vector2f(50, 120), sf::Vector2f(1500, 900-170)), sf::Vector2i(30, 14));
 	
 	score = 0;
+	timeSinceTick = sf::Time::Zero;
+	tickLength = sf::seconds(0.5);
 }
 
 PlayScene::~PlayScene()
@@ -34,11 +36,23 @@ Scene* PlayScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 	scoreText->setString(stream.str());
 	window.draw(*scoreText);
 
+	//see if a simulation update is needed
+	timeSinceTick += frameDelta;
+	if (timeSinceTick >= tickLength)
+	{
+		timeSinceTick -= tickLength;//carry over
+		updateSimulation();
+	}
 
 	playfield->draw(window, 0);
 
 	Scene::update(window, frameDelta);
 
-
 	return nullptr;
+}
+
+void PlayScene::updateSimulation()
+{
+	//get input
+	//move snake
 }

@@ -14,7 +14,8 @@ private:
 	Playfield* playfield;
 	unsigned int score;
 
-	sf::Time UpdateRemaining;
+	sf::Time timeSinceTick;
+	sf::Time tickLength;
 	
 
 public:
@@ -23,7 +24,6 @@ public:
 	Scene* update(sf::RenderWindow& window, sf::Time frameDelta) override;
 
 private:
-	sf::Time updateDelta();
-
+	void updateSimulation();
 
 };
