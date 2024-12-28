@@ -1,15 +1,16 @@
 #include <SFML/Graphics.hpp>
 #include "headers/Game.h"
 #include "headers/Scene.h"
-
+#include "headers/TextScene.h"
 
 Game::Game()
 {
     sf::Font arial("arialbd.ttf");
-    currentScene = new Scene(arial);
+    
     clock = sf::Clock();
     elapsedTime = sf::Time::Zero;
     window = sf::RenderWindow(sf::VideoMode({ 1600u, 900u }), "Snake Test");
+    currentScene = new TextScene(arial, "Test!", window);
     run();
 
 }

@@ -45,12 +45,5 @@ public:
 };
 
 
-//
-//
-//
-//class WelecomeScene : public Scene
-//{
-//private:
-//	sf::Text welcomeText;
-//	
-//};
+
+
