@@ -12,17 +12,6 @@ Scene::FrameHistory::FrameHistory()  : lastFrameDelta(sf::milliseconds(0))
     framerate = 0.0f;
 }
 
-Scene::FrameHistory::FrameHistory(const FrameHistory& other) : lastFrameDelta(other.lastFrameDelta)
-{
-    frameDeltas = other.frameDeltas;
-    framerate = other.framerate;
-
-}
-
-Scene::FrameHistory& Scene::FrameHistory::operator=(const FrameHistory& other)
-{
-    return FrameHistory(other);
-}
 
 Scene::FrameHistory::~FrameHistory()
 {
