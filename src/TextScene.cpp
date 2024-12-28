@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "headers/Scene.h"
 #include "headers/TextScene.h"
+#include "headers/PlayScene.h"
 
 TextScene::TextScene(const sf::Font& font, std::string title, sf::Window& window)
 	: Scene(font), titleFont(font), titleText(sf::Text(font, title, fontSize))
@@ -15,6 +16,7 @@ TextScene::TextScene(const sf::Font& font, std::string title, sf::Window& window
 
 Scene* TextScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 {
+	window.clear(sf::Color(150, 200, 100));
 	window.draw(titleText);
 
 	Scene* toReturn = nullptr;
@@ -26,7 +28,7 @@ Scene* TextScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 	{
 		if (enterPressed)
 		{
-			toReturn = new TextScene(titleFont, titleText.getString() + "Hi!", window);
+			toReturn = new PlayScene(titleFont, window);
 		}
 	}
 

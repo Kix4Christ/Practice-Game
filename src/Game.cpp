@@ -10,7 +10,7 @@ Game::Game()
     clock = sf::Clock();
     elapsedTime = sf::Time::Zero;
     window = sf::RenderWindow(sf::VideoMode({ 1600u, 900u }), "Snake Test");
-    currentScene = new TextScene(arial, "Test!", window);
+    currentScene = new TextScene(arial, "Snake Test", window);
     run();
 
 }
@@ -46,7 +46,7 @@ void Game::run()
 
 void Game::update(sf::Time deltaTime)
 {
-    window.clear(sf::Color(100, 200, 100));
+    window.clear();
     Scene* newScene = currentScene->update(window, deltaTime);
     if (newScene != nullptr)
     {

@@ -13,9 +13,9 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(snakeTest src/main.cpp "src/Scene.cpp" "src/Game.cpp"
-    "src/headers/Game.h" "src/headers/Scene.h" "src/snake.cpp" "src/snake.h" 
+    "src/headers/Game.h" "src/headers/Scene.h" "src/snake.cpp" "src/headers/snake.h" 
     "src/TextScene.cpp" "src/headers/TextScene.h" "src/headers/PlayScene.h" 
-    "src/headers/Playfield.h" "src/PlayScene.cpp")
+    "src/headers/Playfield.h" "src/PlayScene.cpp" "src/headers/Direction.h" "src/Playfield.cpp")
 target_link_libraries(snakeTest PRIVATE SFML::Graphics)
 
 
@@ -23,5 +23,6 @@ target_link_libraries(snakeTest PRIVATE SFML::Graphics)
 add_custom_command(
         TARGET snakeTest POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-                ${CMAKE_SOURCE_DIR}/resources
+                ${CMAKE_SOURCE_DIR}/resources 
+                ${CMAKE_CURRENT_BINARY_DIR}/bin
 )
