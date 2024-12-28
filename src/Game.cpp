@@ -1,0 +1,58 @@
+#include <SFML/Graphics.hpp>
+#include "headers/Game.h"
+#include "headers/Scene.h"
+
+
+Game::Game()
+{
+    sf::Font arial("arialbd.ttf");
+    currentScene = new Scene(arial);
+    clock = sf::Clock();
+    elapsedTime = sf::Time::Zero;
+    window = sf::RenderWindow(sf::VideoMode({ 1600u, 900u }), "Snake Test");
+    run();
+
+}
+
+Game::~Game()
+{
+    delete currentScene;
+}
+
+
+
+
+void Game::run()
+{
+    while (window.isOpen())
+    {
+        while (const std::optional event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
+                window.close();
+            }
+        }
+
+        sf::Time t = clock.getElapsedTime();
+        sf::Time deltaTime = t - elapsedTime;
+        elapsedTime = clock.getElapsedTime();
+
+        update(deltaTime);
+    }
+
+}
+
+void Game::update(sf::Time deltaTime)
+{
+    window.clear(sf::Color(100, 200, 100));
+    Scene* newScene = currentScene->update(window, deltaTime);
+    if (newScene != nullptr)
+    {
+        delete currentScene;
+        currentScene = newScene;
+    }
+
+
+    window.display();
+}
