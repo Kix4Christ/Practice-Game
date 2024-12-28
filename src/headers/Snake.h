@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Direction.h"
+#include <queue>
 
 class Snake
 {
@@ -19,17 +20,20 @@ private:
 		}
 	}head;
 
-	std::vector<segment> segments;
+	std::queue<segment> segments;
 	
 	int length;
+	int boardWidth;
+	int boardHeight;
 
 	sf::Vector2i dirToVector(Direction dir);
 	Direction reverseDir(Direction dir);
+	bool canMove(sf::Vector2i pos);
 
 public:
 	Snake();
 	~Snake();
-	void move();
-	void move(Direction dir);
+	bool move(Direction dir);
 	void increaseLength();
+	std::string toString();
 };
