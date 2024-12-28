@@ -12,7 +12,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(snakeTest src/main.cpp "src/Scene.cpp" "src/Game.cpp" "src/headers/Game.h" "src/headers/Scene.h" "src/snake.cpp" "src/snake.h")
+add_executable(snakeTest src/main.cpp "src/Scene.cpp" "src/Game.cpp" "src/headers/Game.h" "src/headers/Scene.h" "src/snake.cpp" "src/snake.h" "src/Direction.h")
 target_link_libraries(snakeTest PRIVATE SFML::Graphics)
 
 
@@ -21,3 +21,4 @@ add_custom_command(
         TARGET snakeTest POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
                 ${CMAKE_SOURCE_DIR}/resources
+)
