@@ -7,6 +7,7 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 {
 	this->pixelBounds = bounds;
 	this->tileSize = tileSize;
+	counter = 0;
 
 	// initialize the drawable field
 	sf::Vector2f sizeOfTile = getSizeOfTile();
@@ -34,7 +35,18 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 
 	// initialize the snake
 	snake = new Snake(this);
-
+	for (int i = 0; i < 10; i++)
+	{
+		snake->increaseLength();
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		snake->move(Direction::right);
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		snake->move(Direction::down);
+	}
 
 }
 
@@ -45,6 +57,30 @@ Playfield::~Playfield()
 
 PlayfieldEvent Playfield::update(Direction playerMove)
 {
+	// We're just playing right now. move the snake in a circle.
+	
+	// ignoring the player's desires for now
+	Direction d = Direction::none;
+	switch (counter / 5)
+	{
+	case 0:
+		d = Direction::left;
+		break;
+	case 1:
+		d = Direction::up;
+		break;
+	case 2:
+		d = Direction::right;
+		break;
+	case 3:
+		d = Direction::down;
+		break;
+	}
+	snake->move(d);
+
+	counter++;
+	counter = counter > 19? counter - 20 : counter;
+
 	return PlayfieldEvent::None;
 }
 

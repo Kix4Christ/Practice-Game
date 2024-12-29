@@ -55,4 +55,5 @@ void PlayScene::updateSimulation()
 {
 	//get input
 	//move snake
+	playfield->update(Direction::none);
 }

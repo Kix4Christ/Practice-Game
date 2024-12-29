@@ -15,8 +15,9 @@ private:
 	class Segment
 	{
 
-
-
+	private:
+		sf::Sprite sprite;
+		Playfield& playfield;
 	public:
 		sf::Vector2i position;
 
@@ -24,18 +25,15 @@ private:
 		Direction dir;
 
 
-		Segment()
-		{
-			position = sf::Vector2i{ 0,0 };
-			dir = Direction::right;
-		}
+		Segment(Playfield& p, sf::Vector2i pos, Direction dir);
+		
 
-		void draw(sf::RenderWindow& window, float updateProgress, sf::Vector2i previousSegment);
+		void draw(sf::RenderWindow& window, float updateProgress, sf::Vector2i* previousSegment);
 		
 
 	};
 
-	Segment head;
+	Segment* head;
 	std::queue<Segment> segments;
 	
 	int length;
