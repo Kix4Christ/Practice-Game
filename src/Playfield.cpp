@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "headers/Playfield.h"
+#include "headers/Snake.h"
 #include <iostream>
 
 Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
@@ -8,7 +9,6 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 	this->tileSize = tileSize;
 
 	// initialize the drawable field
-	
 	sf::Vector2f sizeOfTile = getSizeOfTile();
 	sf::Color color1(150, 200, 100);
 	sf::Color color2(200, 250, 150);
@@ -31,6 +31,10 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 
 		}
 	}
+
+	// initialize the snake
+	snake = new Snake(this);
+
 
 }
 
@@ -72,7 +76,7 @@ sf::Vector2f Playfield::TileToGlobalCoords(sf::Vector2i tileCoords)
 	return relCoords + pixelBounds.position;
 }
 
-sf::Vector2i Playfield::getTileSize()
+sf::Rect<int> Playfield::getInflatedTileBounds()
 {
-	return tileSize;
+	return sf::Rect<int>(sf::Vector2i(-1, -1), tileSize+sf::Vector2i(1,1));
 }
