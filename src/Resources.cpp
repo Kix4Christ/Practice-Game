@@ -20,6 +20,7 @@ Resources::Resources()
 	snakeBend = sf::Texture("snakeBend.png");
 	snakeEnd = sf::Texture("snakeEnd.png");
 	snakeStraight = sf::Texture("snakeStraight.png");
+	test = sf::Texture("test.png");
 }
 
 Resources::~Resources() {}

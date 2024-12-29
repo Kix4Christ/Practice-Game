@@ -38,7 +38,10 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 
 }
 
-Playfield::~Playfield() {}
+Playfield::~Playfield() 
+{
+	delete snake;
+}
 
 PlayfieldEvent Playfield::update(Direction playerMove)
 {
@@ -56,6 +59,8 @@ void Playfield::draw(sf::RenderWindow& window, float updateProgress)
 			window.draw(drawableField[x][y]);
 		}
 	}
+
+	snake->draw(window, updateProgress);
 
 
 }
@@ -79,4 +84,9 @@ sf::Vector2f Playfield::TileToGlobalCoords(sf::Vector2i tileCoords)
 sf::Rect<int> Playfield::getInflatedTileBounds()
 {
 	return sf::Rect<int>(sf::Vector2i(-1, -1), tileSize+sf::Vector2i(1,1));
+}
+
+sf::Vector2i Playfield::getSizeInTiles()
+{
+	return tileSize;
 }

@@ -34,4 +34,5 @@ public:
 	sf::Vector2f TileToGlobalCoords(sf::Vector2i tileCoords);
 	
 	sf::Rect<int> getInflatedTileBounds();
+	sf::Vector2i getSizeInTiles();
 };

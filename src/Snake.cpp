@@ -5,12 +5,13 @@
 #include "headers/Snake.h"
 #include "headers/Direction.h"
 #include "headers/Playfield.h"
+#include "headers/Resources.h"
 
 
 Snake::Snake(Playfield *field) : playfield(field)
 {
 	head.dir = Direction::right;
-	head.position = sf::Vector2i{ 0,0 };
+	head.position = sf::Vector2i{ playfield->getSizeInTiles()/2};
 	segments.push(head);
 	length = 1;
 
@@ -87,6 +88,14 @@ std::string Snake::toString()
 
 void Snake::draw(sf::RenderWindow& window, float updateProgress)
 {
+	//just draw the dang head, tomorrow or so I'll write the real(tm) code.
+	sf::Sprite cantbeBothered(Resources::get().test);
+	cantbeBothered.setPosition(playfield->TileToGlobalCoords(head.position));
+	sf::Vector2u texSize = cantbeBothered.getTexture().getSize();
+	sf::Vector2f tileSize = playfield->getSizeOfTile();
+	cantbeBothered.setScale(sf::Vector2f(tileSize.x / texSize.x, tileSize.y / texSize.y));
+
+	window.draw(cantbeBothered);
 }
 
 void Snake::Segment::draw(sf::RenderWindow& window, float updateProgress, sf::Vector2i previousSegment)
