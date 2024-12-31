@@ -13,5 +13,11 @@ public:
 
 	static Direction reverseDir(Direction dir);
 
+	static bool isReverse(Direction a, Direction b);
+	
+	static bool isVertical(Direction dir);
+
+	static bool isHorizontal(Direction dir);
+
 
 };

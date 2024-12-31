@@ -43,6 +43,7 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 	{
 		snake->move(Direction::right);
 	}
+	std::cout << snake->toString();
 	for (int i = 0; i < 5; i++)
 	{
 		snake->move(Direction::down);

@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <queue>
+#include <deque>
 
 #include "Direction.h"
 
@@ -16,25 +16,31 @@ private:
 	{
 
 	private:
+		// absolute direction going towards the head of the snake.
+		Direction dir;
+
 		sf::Sprite sprite;
 		Playfield& playfield;
 	public:
 		sf::Vector2i position;
 
-		// absolute direction going towards the head of the snake.
-		Direction dir;
-
-
-		Segment(Playfield& p, sf::Vector2i pos, Direction dir);
 		
-
+		/*
+		Dir is the absolute direction facing towards the head segment.
+		prev is the absolute dir facing towards the head segment of the previous segment.
+		*/
+		Segment(Playfield& p, sf::Vector2i pos, Direction dir, Direction prev);
 		void draw(sf::RenderWindow& window, float updateProgress, sf::Vector2i* previousSegment);
+		void setDir(Direction d, Direction previousSegmentDirection);
+		Direction getDir();
 		
 
 	};
 
 	Segment* head;
-	std::queue<Segment> segments;
+
+	// the tail is at the front, the head is at the back.
+	std::deque<Segment> segments;
 	
 	int length;
 
