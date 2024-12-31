@@ -17,7 +17,7 @@ private:
 		sf::Time& lastFrameDelta;
 		std::deque<sf::Time>* frameDeltas;
 		float framerate;
-
+		
 
 	public:
 		FrameHistory();
@@ -31,11 +31,12 @@ private:
 private:
 	FrameHistory history;
 	sf::Text* fpsText;
-
+protected:
+	Scene* next;
 
 public:
 	//Scene(const Scene& previous);
-	Scene(const sf::Font& font);
+	Scene();
 	~Scene();
 	virtual Scene* update(sf::RenderWindow& window, sf::Time frameDelta);
 

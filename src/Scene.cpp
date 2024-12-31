@@ -2,6 +2,7 @@
 
 #include "headers/Scene.h"
 #include <sstream>
+#include "headers/Resources.h"
 
 
 
@@ -54,11 +55,11 @@ float Scene::FrameHistory::getFramerate()
     return framerate;
 }
 
-Scene::Scene(const sf::Font& font)
+Scene::Scene()
 {
-    fpsText = new sf::Text(font);
+    fpsText = new sf::Text(Resources::get().arial);
     fpsText->setPosition(sf::Vector2f(10, 10));
-
+    next = nullptr;
 
 }
 
@@ -77,6 +78,6 @@ Scene* Scene::update(sf::RenderWindow& window, sf::Time frameDelta)
     window.draw(*fpsText);
 
 
-    return nullptr;
+    return next;
 
 }

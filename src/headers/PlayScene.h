@@ -9,7 +9,6 @@
 class PlayScene : public Scene
 {
 private:
-	const sf::Font& textFont;
 	sf::Text* scoreText;
 	Playfield* playfield;
 	unsigned int score;
@@ -19,7 +18,7 @@ private:
 	
 
 public:
-	PlayScene(const sf::Font& font, sf::Window& window);
+	PlayScene(sf::Window& window);
 	~PlayScene();
 	Scene* update(sf::RenderWindow& window, sf::Time frameDelta) override;
 

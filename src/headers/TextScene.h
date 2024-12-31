@@ -1,19 +1,25 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
+#include "Button.h"
 
 
 class TextScene : public Scene
 {
 private:
-	const static int fontSize = 72;
-    const sf::Font& titleFont;
+	const static int fontSize = 100;
+   
 	sf::Text titleText;
+	Button<TextScene>* button;
 	bool enterPressed;
 
 public:
-	TextScene(const sf::Font& font, std::string title, sf::Window& window);
+	TextScene(std::string title, std::string button, sf::Window& window);
+	~TextScene();
 	Scene* update(sf::RenderWindow& window, sf::Time frameDelta) override;
+
+private:
+	void nextScene();
 
 
 };

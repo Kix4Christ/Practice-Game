@@ -11,7 +11,7 @@ Game::Game()
     clock = sf::Clock();
     elapsedTime = sf::Time::Zero;
     window = sf::RenderWindow(sf::VideoMode({ 1600u, 900u }), "Snake Test");
-    currentScene = new TextScene(Resources::get().arial, "Snake Test", window);
+    currentScene = new TextScene("Snake Test", "Play game", window);
     run();
 
 }

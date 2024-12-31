@@ -3,13 +3,14 @@
 
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include "headers/Resources.h"
 
 
-PlayScene::PlayScene(const sf::Font& font, sf::Window& window)
-	: Scene(font), textFont(font), playfield(nullptr)
+PlayScene::PlayScene(sf::Window& window)
+	: Scene(), playfield(nullptr)
 {
 	
-	scoreText = new sf::Text(font, "Placeholder", 48u);
+	scoreText = new sf::Text(Resources::get().arial, "Placeholder", 48u);
 	scoreText->setPosition(sf::Vector2f(50, 50));
 
 	// initialize the playfield
