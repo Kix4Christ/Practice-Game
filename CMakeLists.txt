@@ -17,7 +17,7 @@ add_executable(snakeTest src/main.cpp "src/Scene.cpp" "src/Game.cpp"
     "src/TextScene.cpp" "src/headers/TextScene.h" "src/headers/PlayScene.h" 
     "src/headers/Playfield.h" "src/PlayScene.cpp" "src/headers/Direction.h" "src/Playfield.cpp" 
     "src/headers/Resources.h" "src/Resources.cpp" "src/Direction.cpp" "src/headers/Button.h" "src/Button.ipp"
-    "src/DirectionalInput.cpp" "src/headers/DirectionalInput.h")
+    "src/DirectionalInput.cpp" "src/headers/DirectionalInput.h" "src/headers/Segment.h" "src/Segment.cpp")
 target_link_libraries(snakeTest PRIVATE SFML::Graphics)
 
 

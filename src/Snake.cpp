@@ -6,118 +6,133 @@
 #include "headers/Direction.h"
 #include "headers/Playfield.h"
 #include "headers/Resources.h"
+#include <iostream>
 
 
 Snake::Snake(Playfield *field) 
 	: playfield(field)
 {
-
-	segments.push(Segment(*field, playfield->getSizeInTiles() / 2, Direction::right));
-	head = &segments.back();
+	// make the first segment
+	sf::Vector2i pos = playfield->getSizeInTiles() / 2;
+	head = new Segment(*playfield, pos, nullptr);
+	tail = head;
 	length = 1;
+	pendingLength = 1;
 
+	if (!move(Direction::right))
+	{
+		throw std::logic_error("Playfield too small to initialize snake.");
+	}
+
+	nextMove = Direction::right;
+	
 }
 
 Snake::~Snake()
 {
-
-}
-
-void Snake::increaseLength() { length++; }
-
-
-
-bool Snake::move(Direction dir)
-{
-	//if the the direction is backwards or none, just keep it going forwards
-	if (Dir::reverseDir(dir) == head->dir || dir == Direction::none) dir = head->dir;
-
-	Segment newSegment(*playfield, head->position + Dir::dirToVector(dir), dir);
-
-	//can it move there?
-	if(!canMove(newSegment.position)) return false;
-
-	segments.push(newSegment);
-	head = &segments.back();
-
-	//delete the tail if needed
-	if (length < segments.size())
+	// we need to delete our segments.
+	while (tail != nullptr)
 	{
-		segments.pop();
+		removeTail();
 	}
-	return true;
 }
 
-
-bool Snake::canMove(sf::Vector2i pos)
+void Snake::increaseLength(int by) 
 {
-	std::queue<Segment> copy = segments;
-
-	//if it is colliding with any previous segment
-	while (!copy.empty())
-	{
-		if (copy.front().position == pos) return false;
-		copy.pop();
-	}
-	//if it is in bounds
-	if (pos.x < 0 || pos.y < 0) return false;
-	
-	if (!playfield->getInflatedTileBounds().contains(pos)) return false;
-
-	return true;
+	pendingLength+=by;
 }
+
 
 
 std::string Snake::toString()
 {
 	std::stringstream stream;
-	stream << "length: " << length << "\n";
-	std::queue<Segment> copy = segments;
+	stream << "length: " << length << "\nPending: "<< pendingLength <<"\nStarting from Head:\n";
 
 	int i = 0;
-	while (!copy.empty()) 
+	for (Segment* seg = head; seg != nullptr; seg = seg->nextTowardsTail())
 	{
-		Segment s = copy.front();
-		copy.pop();
-		stream << "segment " << i << " pos: " << s.position.x << " " << s.position.y << " dir: " << s.dir << "\n";
+		stream << "segment #" << i << "@ (" << seg->getTileCoords().x << ", "<< seg->getTileCoords().y << ")\n";
 		i++;
 	}
 
 	return stream.str();
 }
 
+bool Snake::update(Direction moveNext)
+{
+	if (!move(nextMove)) return false;
+	nextMove = moveNext;
+	return true;	
+}
+
 void Snake::draw(sf::RenderWindow& window, float updateProgress)
 {
-	std::queue<Segment> copy = segments;
-
-	//if it is colliding with any previous segment
-	sf::Vector2i* lastPos = nullptr;
-	while (!copy.empty())
+	for (Segment* seg = head; seg != nullptr; seg = seg->nextTowardsTail())
 	{
-		
-		Segment& seg = copy.front();
-		copy.pop();
-		seg.draw(window, updateProgress, lastPos);
-		lastPos = &seg.position; // this uses & as an address, not reference.
-								// or maybe it is a reference in C++ land? I guess it would make sense if a
-								// reference could be implicitly cast to a pointer or something
-		
+		seg->draw(window, updateProgress);
 	}
 
 }
 
-Snake::Segment::Segment(Playfield& p, sf::Vector2i pos, Direction dir): playfield(p), sprite(sf::Sprite(Resources::get().test))
+// returns the direction in front of the snake's head.
+Direction Snake::forwards()
 {
-	position = pos;
-	this->dir = dir;
-	sprite.setPosition(playfield.TileToGlobalCoords(position));
-	sf::Vector2u texSize = sprite.getTexture().getSize();
-	sf::Vector2f tileSize = playfield.getSizeOfTile();
-	sprite.setScale(sf::Vector2f(tileSize.x / texSize.x, tileSize.y / texSize.y));
+	if (head == tail) return Direction::right;
+
+	Segment* behind = head->nextTowardsTail();
+	return Dir::vectorToDir(head->getTileCoords() - behind->getTileCoords());
 
 }
 
-void Snake::Segment::draw(sf::RenderWindow& window, float updateProgress, sf::Vector2i* previousSegment)
+void Snake::removeTail()
 {
-	window.draw(sprite);
+	Segment* newTail = tail->nextTowardsHead();
+	length--;
+	delete tail;
+	tail = newTail;
 }
+
+
+bool Snake::move(Direction dir)
+{
+
+	//if the the direction is backwards or none, just keep it going forwards
+	if (Dir::reverseDir(dir) == forwards() || dir == Direction::none)
+	{
+		dir = forwards();
+	}
+
+	sf::Vector2i newSegmentPos = head->getTileCoords() + Dir::dirToVector(dir);
+
+	// can we perform the movement?
+	if (!canMove(newSegmentPos)) return false;
+
+
+	// add a new segment
+	head = new Segment(*playfield, newSegmentPos, head);
+	length++;
+
+	//delete the tail if needed
+	if (pendingLength==0)
+	{
+		removeTail();
+		return true;
+	}
+	
+	pendingLength--;
+	return true;
+
+}
+
+
+bool Snake::canMove(sf::Vector2i pos)
+{
+	// well, that cleaned up super nicely.
+	for (Segment* seg = head; seg != nullptr; seg = seg->nextTowardsTail())
+	{
+		if (seg->getTileCoords() == pos) return false;
+	}
+	return true;
+}
+
