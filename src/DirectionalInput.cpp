@@ -2,7 +2,7 @@
 
 DirectionalInput::DirectionalInput()
 {
-    Direction nextDir = Direction::none;
+    nextDir = Direction::none;
 }
 
 void DirectionalInput::update()

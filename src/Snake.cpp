@@ -79,9 +79,7 @@ void Snake::draw(sf::RenderWindow& window, float updateProgress)
 Direction Snake::forwards()
 {
 	if (head == tail) return Direction::right;
-
-	Segment* behind = head->nextTowardsTail();
-	return Dir::vectorToDir(head->getTileCoords() - behind->getTileCoords());
+	return Dir::reverseDir(head->backward());
 
 }
 
@@ -96,6 +94,7 @@ void Snake::removeTail()
 
 bool Snake::move(Direction dir)
 {
+
 
 	//if the the direction is backwards or none, just keep it going forwards
 	if (Dir::reverseDir(dir) == forwards() || dir == Direction::none)
@@ -133,6 +132,9 @@ bool Snake::canMove(sf::Vector2i pos)
 	{
 		if (seg->getTileCoords() == pos) return false;
 	}
-	return true;
+
+	if (pos.x < 0 || pos.y < 0) return false;
+	return playfield->getInflatedTileBounds().contains(pos);
+	
 }
 
