@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "headers/Scene.h"
-#include "headers/TextScene.h"
+#include "headers/MenuScene.h"
 #include "headers/PlayScene.h"
 #include "headers/Resources.h"
 
 
-TextScene::TextScene(std::string title, std::string buttonTitle, sf::Window& window)
+MenuScene::MenuScene(std::string title, std::string buttonTitle, sf::Window& window)
 	: Scene(), titleText(sf::Text(Resources::get().arial, title, fontSize))
 {
 	enterPressed = false;
@@ -14,7 +14,7 @@ TextScene::TextScene(std::string title, std::string buttonTitle, sf::Window& win
 		80.0f
 	));
 
-	button = new Button<TextScene>
+	button = new Button<MenuScene>
 	(
 		*this,
 		sf::FloatRect(
@@ -23,15 +23,15 @@ TextScene::TextScene(std::string title, std::string buttonTitle, sf::Window& win
 		),
 		buttonTitle
 	);
-	button->setOnClick(&TextScene::nextScene);
+	button->setOnClick(&MenuScene::nextScene);
 }
 
-TextScene::~TextScene()
+MenuScene::~MenuScene()
 {
 	delete button;
 }
 
-Scene* TextScene::update(sf::RenderWindow& window, sf::Time frameDelta)
+Scene* MenuScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 {
 	window.clear(sf::Color(160, 190, 110));
 	window.draw(titleText);
@@ -55,7 +55,7 @@ Scene* TextScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 	
 }
 
-void TextScene::nextScene()
+void MenuScene::nextScene()
 {
 	// this is a massive hack, try to ignore until SCENE NEEDS WINDOW REFERENCE AS MEMBER
 	enterPressed = true;

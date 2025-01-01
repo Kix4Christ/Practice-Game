@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "headers/Game.h"
 #include "headers/Scene.h"
-#include "headers/TextScene.h"
+#include "headers/MenuScene.h"
 #include "headers/Resources.h"
 
 Game::Game()
@@ -11,7 +11,7 @@ Game::Game()
     clock = sf::Clock();
     elapsedTime = sf::Time::Zero;
     window = sf::RenderWindow(sf::VideoMode({ 1600u, 900u }), "Snake Test");
-    currentScene = new TextScene("Snake Test", "Play game", window);
+    currentScene = new MenuScene("Snake Test", "Play game", window);
     run();
 
 }
