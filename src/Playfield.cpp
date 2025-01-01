@@ -4,11 +4,11 @@
 #include "headers/Resources.h"
 #include <iostream>
 
-Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize) : fruitSprite(sf::Sprite(Resources::get().test))
+Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize) : fruitSprite(sf::Sprite(Resources::get().fruit))
 {
 	this->pixelBounds = bounds;
 	this->tileSize = tileSize;
-	counter = 0;
+	
 
 	// initialize the drawable field
 	sf::Vector2f sizeOfTile = getSizeOfTile();

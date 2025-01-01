@@ -17,10 +17,15 @@ Resources::Resources()
 	// actually initialize.
 	arial = sf::Font("arialbd.ttf");
 	fruit = sf::Texture("fruit.png");
+	fruit.setSmooth(true);
 	snakeBend = sf::Texture("snakeBend.png");
+	snakeBend.setSmooth(true);
 	snakeEnd = sf::Texture("snakeEnd.png");
+	snakeEnd.setSmooth(true);
 	snakeStraight = sf::Texture("snakeStraight.png");
-	test = sf::Texture("test.png");
+	snakeStraight.setSmooth(true);
+	snakeHead = sf::Texture("snakeHead.png");
+	snakeHead.setSmooth(true);
 }
 
 Resources::~Resources() {}

@@ -9,7 +9,7 @@
    id="svg1"
    inkscape:version="1.4 (86a8ad7, 2024-10-11)"
    sodipodi:docname="Snake Body.svg"
-   inkscape:export-filename="snakeEnd.png"
+   inkscape:export-filename="snakeHead.png"
    inkscape:export-xdpi="24"
    inkscape:export-ydpi="24"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,7 +27,7 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="0.97386896"
-     inkscape:cx="210.5006"
+     inkscape:cx="209.98718"
      inkscape:cy="273.65078"
      inkscape:window-width="1920"
      inkscape:window-height="991"
@@ -68,5 +68,29 @@
        cx="64"
        cy="64"
        r="37.5" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:16.3954;stroke-linecap:round;stroke-opacity:0.696809"
+       id="path2"
+       cx="61.417324"
+       cy="47.244095"
+       r="14.173228" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:16.3954;stroke-linecap:round;stroke-opacity:0.696809"
+       id="path2-8"
+       cx="61.417324"
+       cy="80.314964"
+       r="14.173228" />
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke-width:14.1732;stroke-linecap:round;stroke-opacity:0.696809"
+       id="path3"
+       cx="63.307087"
+       cy="47.244095"
+       r="12.283464" />
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke-width:14.1732;stroke-linecap:round;stroke-opacity:0.696809"
+       id="path3-5"
+       cx="63.307087"
+       cy="80.314964"
+       r="12.283464" />
   </g>
 </svg>

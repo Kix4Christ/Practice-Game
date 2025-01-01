@@ -12,7 +12,7 @@ public:
 	sf::Texture snakeBend;
 	sf::Texture snakeEnd;
 	sf::Texture snakeStraight;
-	sf::Texture test;
+	sf::Texture snakeHead;
 
 
 private:

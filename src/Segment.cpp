@@ -4,7 +4,7 @@
 #include <iostream>
 
 Segment::Segment(Playfield& playfield, sf::Vector2i coords, Segment* towardsTail)
-	: sprite(sf::Sprite(Resources::get().test)), playfield(playfield)
+	: sprite(sf::Sprite(Resources::get().snakeHead)), playfield(playfield)
 {
 	// initialize data
 	tileCoords = coords;
@@ -16,7 +16,7 @@ Segment::Segment(Playfield& playfield, sf::Vector2i coords, Segment* towardsTail
 	}
 
 	
-	setupSprite(Resources::get().snakeEnd);
+	setupSprite(Resources::get().snakeHead);
 
 	if (towardsTail == nullptr) return;
 

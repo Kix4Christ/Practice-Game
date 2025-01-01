@@ -17,9 +17,6 @@ class Playfield
 private:
 	 sf::Rect<float> pixelBounds;
 
-	 // VERY TEMPORARY!!!
-	 int counter; 
-
 	 // size in tiles of the playfield
 	 sf::Vector2i tileSize;
 
