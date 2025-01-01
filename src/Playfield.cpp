@@ -35,17 +35,16 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 
 	// initialize the snake
 	snake = new Snake(this);
-	for (int i = 0; i < 10; i++)
+
+	snake->increaseLength(7);
+	
+	for (int i = 0; i < 2; i++)
 	{
-		snake->increaseLength();
+		snake->update(Direction::right);
 	}
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		snake->move(Direction::right);
-	}
-	for (int i = 0; i < 5; i++)
-	{
-		snake->move(Direction::down);
+		snake->update(Direction::down);
 	}
 
 }
@@ -76,7 +75,7 @@ PlayfieldEvent Playfield::update(Direction playerMove)
 		d = Direction::down;
 		break;
 	}
-	snake->move(d);
+	snake->update(d);
 
 	counter++;
 	counter = counter > 19? counter - 20 : counter;
