@@ -75,6 +75,15 @@ void Snake::draw(sf::RenderWindow& window, float updateProgress)
 
 }
 
+bool Snake::contains(sf::Vector2i pos)
+{
+	for (Segment* seg = head; seg != nullptr; seg = seg->nextTowardsTail())
+	{
+		if (seg->getTileCoords() == pos) return true;
+	}
+	return false;
+}
+
 // returns the direction in front of the snake's head.
 Direction Snake::forwards()
 {
@@ -128,11 +137,7 @@ bool Snake::move(Direction dir)
 bool Snake::canMove(sf::Vector2i pos)
 {
 	// well, that cleaned up super nicely.
-	for (Segment* seg = head; seg != nullptr; seg = seg->nextTowardsTail())
-	{
-		if (seg->getTileCoords() == pos) return false;
-	}
-
+	if (contains(pos)) return false;
 	if (pos.x < 0 || pos.y < 0) return false;
 	return playfield->getInflatedTileBounds().contains(pos);
 	
