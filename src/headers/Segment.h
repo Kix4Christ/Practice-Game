@@ -13,6 +13,8 @@ private:
 	Segment* towardsHead;
 	Segment* towardsTail;
 
+	Playfield& playfield;
+
 public:
 	// segments are created at the head of a snake, so only a tail reference is needed.
 	Segment(Playfield& playfield, sf::Vector2i coords, Segment* towardsTail);
@@ -25,10 +27,16 @@ public:
 	// update is a value from 0 to 1, representing the progress through an interval between simulation updates.
 	void draw(sf::RenderWindow& window, float updateProgress);
 
+	Direction forward();
+	Direction backward();
+
 private:
 	// called on a segment when a new head is created.
 	void onTowardsHeadAdd(Segment* towardsHead);
 
 	// called on a segment when the adjacent tail is removed, making them the tail.
 	void onTowardsTailRemoved();
+
+	void setupSprite(sf::Texture &texture);
+	
 };

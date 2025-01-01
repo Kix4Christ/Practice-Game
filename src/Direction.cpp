@@ -28,3 +28,62 @@ Direction Dir::reverseDir(Direction dir)
 	if (dir == Direction::right) return Direction::left;
 	else return Direction::right;
 }
+
+sf::Angle Dir::dirToAngle(Direction dir)
+{
+	int deg = 0;
+	switch (dir)
+	{
+	case right:
+		deg = 0;
+		break;
+	case up:
+		deg = 90;
+		break;
+	case left:
+		deg = 180;
+		break;
+	case down:
+		deg = 270;
+		break;
+	}
+	return sf::degrees(deg);
+}
+
+std::string Dir::dirToString(Direction dir)
+{
+	switch (dir)
+	{
+	case right:
+		return "right";
+	case up:
+		return "up";
+	case left:
+		return "left";
+	case down:
+		return "down";
+		
+	}
+
+	return "none";
+}
+
+Direction Dir::clockwise(Direction dir)
+{
+
+	switch (dir)
+	{
+	case right:
+		return Direction::down;
+	case up:
+		return Direction::right;
+	case left:
+		return Direction::up;
+	case down:
+		return Direction::right;
+
+	}
+
+	return Direction::none;
+	
+}
