@@ -35,6 +35,8 @@ public:
 
 	bool update(Direction moveNext);
 	void draw(sf::RenderWindow& window, float updateProgress);
+	bool contains(sf::Vector2i pos);
+
 
 private:
 	Direction forwards();
