@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include "headers/Resources.h"
+#include "headers/DirectionalInput.h"
 
 
 PlayScene::PlayScene(sf::Window& window)
@@ -19,6 +20,8 @@ PlayScene::PlayScene(sf::Window& window)
 	score = 0;
 	timeSinceTick = sf::Time::Zero;
 	tickLength = sf::seconds(0.5);
+
+	directionalInput = DirectionalInput();
 }
 
 PlayScene::~PlayScene()
@@ -47,6 +50,8 @@ Scene* PlayScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 
 	playfield->draw(window, 0);
 
+	directionalInput.update();
+
 	Scene::update(window, frameDelta);
 
 	return nullptr;
@@ -55,6 +60,7 @@ Scene* PlayScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 void PlayScene::updateSimulation()
 {
 	//get input
+	Direction dir = directionalInput.getDirection();
 	//move snake
-	playfield->update(Direction::none);
+	playfield->update(dir);
 }
