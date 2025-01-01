@@ -80,7 +80,7 @@ Direction Dir::clockwise(Direction dir)
 	case left:
 		return Direction::up;
 	case down:
-		return Direction::right;
+		return Direction::left;
 
 	}
 

@@ -87,10 +87,10 @@ void Segment::onTowardsHeadAdd(Segment* towardsHead)
 		return;
 	}
 
-	if (Dir::clockwise(forward()) == backward())
+	if (Dir::clockwise(backward()) == forward())
 	{
 		setupSprite(Resources::get().snakeBend);
-		sprite.setRotation(sf::degrees(270) - Dir::dirToAngle(forward()));
+		sprite.setRotation(sf::degrees(180) - Dir::dirToAngle(forward()));
 		return;
 	}
 
