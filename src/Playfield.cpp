@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include "headers/Playfield.h"
 #include "headers/Snake.h"
+#include "headers/Resources.h"
 #include <iostream>
 
-Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
+Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize) : fruitSprite(sf::Sprite(Resources::get().test))
 {
 	this->pixelBounds = bounds;
 	this->tileSize = tileSize;
@@ -47,6 +48,11 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize)
 		snake->update(Direction::down);
 	}
 
+	std::srand(std::time(0)); // Seed with current time
+	int x = std::rand() % tileSize.x;
+	int y = std::rand() % tileSize.y;
+	fruitPosition = sf::Vector2i::Vector2(x, y);
+
 }
 
 Playfield::~Playfield() 
@@ -58,9 +64,6 @@ PlayfieldEvent Playfield::update(Direction playerMove)
 {
 	
 	snake->update(playerMove);
-
-	counter++;
-	counter = counter > 19? counter - 20 : counter;
 
 	return PlayfieldEvent::None;
 }
@@ -78,8 +81,9 @@ void Playfield::draw(sf::RenderWindow& window, float updateProgress)
 	}
 
 	snake->draw(window, updateProgress);
+	
 
-
+	drawApple(window, fruitPosition);
 }
 
 sf::Vector2f Playfield::getSizeOfTile()
@@ -106,4 +110,18 @@ sf::Rect<int> Playfield::getInflatedTileBounds()
 sf::Vector2i Playfield::getSizeInTiles()
 {
 	return tileSize;
+}
+
+void Playfield::drawApple(sf::RenderWindow& window, sf::Vector2i position)
+{
+	//draw an apple
+	sf::Texture texture = Resources::get().fruit;
+	fruitSprite = sf::Sprite(texture);
+	fruitSprite.setOrigin(static_cast<sf::Vector2f>(texture.getSize() / 2u));
+	fruitSprite.setPosition(TileToGlobalCoords(position) + (getSizeOfTile() / 2.0f));
+	sf::Vector2u texSize = fruitSprite.getTexture().getSize();
+	sf::Vector2f tileSize = getSizeOfTile();
+	fruitSprite.setScale(sf::Vector2f(tileSize.x / texSize.x, tileSize.y / texSize.y) * 1.05f);
+
+	window.draw(fruitSprite);
 }

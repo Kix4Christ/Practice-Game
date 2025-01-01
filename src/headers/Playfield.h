@@ -26,6 +26,9 @@ private:
 	 std::vector<std::vector<sf::RectangleShape>> drawableField;	
 	 Snake* snake;
 
+	 sf::Sprite fruitSprite;
+	 sf::Vector2i fruitPosition;
+
 public:
 	Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize);
 	~Playfield();
@@ -38,4 +41,7 @@ public:
 	
 	sf::Rect<int> getInflatedTileBounds();
 	sf::Vector2i getSizeInTiles();
+
+private:
+	void drawApple(sf::RenderWindow& window, sf::Vector2i position);
 };
