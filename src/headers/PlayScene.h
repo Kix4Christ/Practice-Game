@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "Playfield.h"
+#include "DirectionalInput.h"
 
 /*
 * For all intents and purposes, this is the main file of the snake game.
@@ -16,7 +17,7 @@ private:
 	sf::Time timeSinceTick;
 	sf::Time tickLength;
 	
-
+	DirectionalInput directionalInput;
 public:
 	PlayScene(sf::Window& window);
 	~PlayScene();

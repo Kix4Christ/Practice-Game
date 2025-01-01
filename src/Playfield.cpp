@@ -56,26 +56,8 @@ Playfield::~Playfield()
 
 PlayfieldEvent Playfield::update(Direction playerMove)
 {
-	// We're just playing right now. move the snake in a circle.
 	
-	// ignoring the player's desires for now
-	Direction d = Direction::none;
-	switch (counter / 5)
-	{
-	case 0:
-		d = Direction::left;
-		break;
-	case 1:
-		d = Direction::up;
-		break;
-	case 2:
-		d = Direction::right;
-		break;
-	case 3:
-		d = Direction::down;
-		break;
-	}
-	snake->update(d);
+	snake->update(playerMove);
 
 	counter++;
 	counter = counter > 19? counter - 20 : counter;
