@@ -11,7 +11,7 @@ Game::Game()
     clock = sf::Clock();
     elapsedTime = sf::Time::Zero;
     window = sf::RenderWindow(sf::VideoMode({ 1600u, 900u }), "Snake Test");
-    currentScene = new MenuScene("Snake Test", "Play game", window);
+    currentScene = new MenuScene("Snake Test", "Kendrick Myers and Mason Hill","Play game", window);
     run();
 
 }

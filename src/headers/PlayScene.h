@@ -24,6 +24,6 @@ public:
 	Scene* update(sf::RenderWindow& window, sf::Time frameDelta) override;
 
 private:
-	void updateSimulation();
+	void updateSimulation(sf::RenderWindow& window);
 
 };

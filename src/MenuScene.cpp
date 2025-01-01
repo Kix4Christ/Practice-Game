@@ -5,20 +5,34 @@
 #include "headers/Resources.h"
 
 
-MenuScene::MenuScene(std::string title, std::string buttonTitle, sf::Window& window)
-	: Scene(), titleText(sf::Text(Resources::get().arial, title, fontSize))
+MenuScene::MenuScene(std::string title, std::string subtitle, std::string buttonTitle, sf::Window& window) : Scene(),
+	titleText(sf::Text(Resources::get().arial)), 
+	subTitle(sf::Text(Resources::get().arial))
 {
 	enterPressed = false;
+
+	titleText.setString(title);
+	titleText.setCharacterSize(fontSize);
 	titleText.setPosition(sf::Vector2f(
 		(window.getSize().x - titleText.getGlobalBounds().size.x) / 2.0f,
-		80.0f
+		180.0f
 	));
+
+	subTitle.setString(subtitle);
+	subTitle.setCharacterSize(smallFontSize);
+	subTitle.setPosition(sf::Vector2f(
+		(window.getSize().x - subTitle.getGlobalBounds().size.x) / 2.0f,
+		320.0f
+	));
+
+
+	
 
 	button = new Button<MenuScene>
 	(
 		*this,
 		sf::FloatRect(
-			sf::Vector2f(window.getSize().x/4.0f, 300), 
+			sf::Vector2f(window.getSize().x/4.0f, 450), 
 			sf::Vector2f(window.getSize().x/2.0f, 200)
 		),
 		buttonTitle
@@ -35,6 +49,7 @@ Scene* MenuScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 {
 	window.clear(sf::Color(160, 190, 110));
 	window.draw(titleText);
+	window.draw(subTitle);
 
 	Scene* toReturn = nullptr;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))

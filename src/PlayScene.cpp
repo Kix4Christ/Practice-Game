@@ -5,6 +5,7 @@
 #include <sstream>
 #include "headers/Resources.h"
 #include "headers/DirectionalInput.h"
+#include "headers/MenuScene.h"
 
 
 PlayScene::PlayScene(sf::Window& window)
@@ -15,7 +16,7 @@ PlayScene::PlayScene(sf::Window& window)
 	scoreText->setPosition(sf::Vector2f(50, 50));
 
 	// initialize the playfield
-	playfield = new Playfield(sf::FloatRect(sf::Vector2f(50, 120), sf::Vector2f(1500, 900-170)), sf::Vector2i(30, 14));
+	playfield = new Playfield(sf::FloatRect(sf::Vector2f(50, 120), sf::Vector2f(1500, 900-170)), sf::Vector2i(15, 7));
 	
 	score = 0;
 	timeSinceTick = sf::Time::Zero;
@@ -45,7 +46,7 @@ Scene* PlayScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 	if (timeSinceTick >= tickLength)
 	{
 		timeSinceTick -= tickLength;//carry over
-		updateSimulation();
+		updateSimulation(window);
 	}
 
 	playfield->draw(window, 0);
@@ -54,13 +55,26 @@ Scene* PlayScene::update(sf::RenderWindow& window, sf::Time frameDelta)
 
 	Scene::update(window, frameDelta);
 
-	return nullptr;
+	return next;
 }
 
-void PlayScene::updateSimulation()
+void PlayScene::updateSimulation(sf::RenderWindow& window)
 {
 	//get input
 	Direction dir = directionalInput.getDirection();
 	//move snake
-	playfield->update(dir);
+	PlayfieldEvent e = playfield->update(dir);
+	if (e == PlayfieldEvent::playerAte)
+	{
+		score++;
+		int ms = 500 - (score * 5);
+		if (ms < 100) ms = 100;
+		tickLength = sf::milliseconds(ms);
+	}
+
+	if (e == PlayfieldEvent::playerDied)
+	{
+		next = new MenuScene("You Lost!", "Score: " + std::to_string(score), "Try Again", window);
+	}
+	
 }

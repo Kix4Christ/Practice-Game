@@ -37,21 +37,13 @@ Playfield::Playfield(sf::Rect<float> bounds, sf::Vector2i tileSize) : fruitSprit
 	// initialize the snake
 	snake = new Snake(this);
 
-	snake->increaseLength(7);
-	
-	for (int i = 0; i < 2; i++)
-	{
-		snake->update(Direction::right);
-	}
-	for (int i = 0; i < 4; i++)
-	{
-		snake->update(Direction::down);
-	}
+
 
 	std::srand(std::time(0)); // Seed with current time
 	int x = std::rand() % tileSize.x;
 	int y = std::rand() % tileSize.y;
 	fruitPosition = sf::Vector2i::Vector2(x, y);
+	newFruitCoords();
 
 }
 
@@ -63,7 +55,17 @@ Playfield::~Playfield()
 PlayfieldEvent Playfield::update(Direction playerMove)
 {
 	
-	snake->update(playerMove);
+	if (!snake->update(playerMove))
+	{
+		return PlayfieldEvent::playerDied;
+	}
+	
+	if (snake->contains(fruitPosition))
+	{
+		newFruitCoords();
+		snake->increaseLength(1);
+		return PlayfieldEvent::playerAte;
+	}
 
 	return PlayfieldEvent::None;
 }
@@ -110,6 +112,18 @@ sf::Rect<int> Playfield::getInflatedTileBounds()
 sf::Vector2i Playfield::getSizeInTiles()
 {
 	return tileSize;
+}
+
+void Playfield::newFruitCoords()
+{
+
+	while (snake->contains(fruitPosition))
+	{
+		int x = std::rand() % tileSize.x;
+		int y = std::rand() % tileSize.y;
+		fruitPosition = sf::Vector2i::Vector2(x, y);
+	}
+	
 }
 
 void Playfield::drawApple(sf::RenderWindow& window, sf::Vector2i position)

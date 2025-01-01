@@ -22,7 +22,6 @@ private:
 	int length;
 	int pendingLength;
 
-	Direction nextMove;
 	Playfield* playfield;
 	
 

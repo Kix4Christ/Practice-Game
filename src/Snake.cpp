@@ -24,7 +24,6 @@ Snake::Snake(Playfield *field)
 		throw std::logic_error("Playfield too small to initialize snake.");
 	}
 
-	nextMove = Direction::right;
 	
 }
 
@@ -61,8 +60,7 @@ std::string Snake::toString()
 
 bool Snake::update(Direction moveNext)
 {
-	if (!move(nextMove)) return false;
-	nextMove = moveNext;
+	if (!move(moveNext)) return false;
 	return true;	
 }
 

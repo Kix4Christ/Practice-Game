@@ -43,5 +43,6 @@ public:
 	sf::Vector2i getSizeInTiles();
 
 private:
+	void newFruitCoords();
 	void drawApple(sf::RenderWindow& window, sf::Vector2i position);
 };
